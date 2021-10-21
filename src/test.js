@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import { Chart, registerables } from "chart.js";
-import DataLabelsPlugin from "chartjs-plugin-datalabels";
-import StreamingPlugin from "chartjs-plugin-streaming";
+import DataLabelsPlugin from 'chartjs-plugin-datalabels';
+import StreamingPlugin from 'chartjs-plugin-streaming';
 import moment from "moment";
-
 const socket = io("ws://localhost:8000", {
   transports: ["websocket", "polling"],
   secure: true,
 });
 
 Chart.register(...registerables, DataLabelsPlugin, StreamingPlugin);
-const currentTime = moment(new Date(), "HH:mm:ss").format("HH:mm:ss");
+
 function App() {
+  const [currentLevel, setCurrentLevel] = useState([]);
   const canvas = useRef();
   const increment = useRef();
 
@@ -20,31 +20,37 @@ function App() {
 
   useEffect(() => {
     socket.on("topic", (arg) => {
-      const { level, ts } = arg;
+      const { level } = arg;
+     
+      setCurrentLevel(level);
       if (increment.current === undefined) {
         increment.current = 0;
       }
-      if (increment.current < 8) {
+      if (increment.current < 10) {
         increment.current = increment.current + 1;
       } else {
         removeData(dataChart);
       }
-      addData(dataChart, ts, level);
+      const currentTime = moment(new Date(), "HH:mm:ss").format("HH:mm:ss")
+      addData(dataChart, currentTime, level);
     });
   }, []);
 
   function addData(chart, label, data) {
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
-      dataset.data.push(...data);
+      console.log(dataset.data);
+      dataset.data.push(data);
     });
     chart.update();
   }
 
   function removeData(chart) {
-    chart.data.labels.splice(-1, 1);
+    chart.data.labels.splice(2, 1);
     chart.data.datasets.forEach((dataset) => {
-      dataset.data.splice(0, 1);
+      dataset.data[0] = dataset.data[2][0];
+      dataset.data[1] = dataset.data[2];
+      dataset.data.splice(2, 1);
     });
     chart.update();
   }
@@ -60,18 +66,16 @@ function App() {
   };
 
   const data = {
+    labels: [],
     datasets: [
       {
         label: "Wet Well Level",
-        backgroundColor: "#fff",
-        borderColor: chartColors.blue,
-        borderWidth: 3,
-        pointRadius: 3,
-        pointStyle: "circle",
-        radius: 0,
+        backgroundColor: chartColors.blue,
+        borderColor: "rgb(48 128 208)",
+        pointBackgroundColor: "#2326b3",
         fill: false,
         cubicInterpolationMode: "monotone",
-        lineTension: 0,
+        data: [0, currentLevel],
       },
     ],
   };
@@ -83,43 +87,47 @@ function App() {
       type: "line",
       data,
       options: {
-        responsive: true,
-        plugins: {
-          title: {
+        stroke: {
+          curve: 'smooth'
+        },
+        title: {
+          display: true,
+          text: "Line chart (hotizontal scroll) sample",
+        },
+        scales: {
+          xAxes: 
+            {
+              realtime: {
+                duration: 10,
+                refresh: 10,
+                delay: 10,
+              }
+            },
+          y: {
+            suggestedMin: 0,
+            suggestedMax: 100,
             display: true,
-            text: "Suggested Min and Max Settings",
+            labelString: "value",
           },
         },
         interaction: {
-          mode: "index",
-          intersect: false,
+          intersect: false
         },
-        scales: {
-          x: {
-            ticks: {
-              callback: function (value, index, values) {
-                return `${currentTime}`;
-              },
+        plugins: {
+          datalabels: {
+            backgroundColor: context => context.dataset.borderColor,
+            padding: 4,
+            borderRadius: 4,
+            clip: true,
+            color: 'white',
+            font: {
+              weight: 'bold'
             },
-          },
-          y: {
-            min: 0,
-            max: 100,
-            ticks: {
-              callback: function (value, index, values) {
-                return `${value} Feet`;
-              },
-            },
-          },
+            formatter: value => value.y
+          }
         },
       },
     });
-
-    dataChart.options.plugins = {
-      annotation: false,
-      datalabels: false,
-      zoom: false,
-    };
   }, []);
 
   return (
