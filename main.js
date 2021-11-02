@@ -3,16 +3,22 @@ const path = require("path");
 
 function createWindow() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  let mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     frame: true,
     autoHideMenuBar: true,
+    titleBarOverlay: {
+      color: "#2f3241",
+      symbolColor: "#74b1be",
+    },
     webPreferences: {
+      contextIsolation: true,
       devTools: true,
       nodeIntegration: true,
     },
   });
+
   if (app.isPackaged) {
     mainWindow.loadFile(path.join(__dirname, "../build.index.html"));
   } else {

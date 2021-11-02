@@ -5,7 +5,7 @@
 
 @layer components {
     .side-bar-link-list {
-        @apply px-3 py-2 rounded-sm mb-2 transition duration-150 bg-gray-800;
+        @apply px-3 py-2 rounded-sm mb-2 transition duration-150 text-base;
       }
     .side-bar-link {
       @apply block text-gray-200 hover:text-white truncate transition duration-150;
