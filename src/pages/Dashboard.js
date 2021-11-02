@@ -1,9 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  Link,
-  NavLink,
-  useLocation
-} from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { linkNavigation } from "../routers/index";
 import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
 import { io } from "socket.io-client";
 import "chartjs-adapter-luxon";
@@ -150,43 +147,52 @@ function Dashboard() {
   const location = useLocation();
   const { pathname } = location;
 
+  const navLinkBgHover = (serarchLink) => {
+    if (pathname.includes(serarchLink)) return `bg-gray-900`;
+    return `hover:bg-gray-900`;
+  };
+
   return (
     <div className="flex flex-row w-screen h-screen bg-red-50">
       <div className="flex justify-center w-1/6 bg-gray-700">
-      <nav className="flex justify-center w-full mt-36">
+        <nav className="flex justify-center w-full mt-36">
           <ul className="mt-3 w-11/12">
-            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname === '/' && 'bg-gray-900'}`}>
-              <NavLink className="text-gray-200 hover:text-white" exact to="/">Dashboard</NavLink>
+            <li
+              className={`side-bar-link-list ${
+                pathname === "/" && "bg-gray-900"
+              }`}
+            >
+              <NavLink className="side-bar-link" exact to="/">
+                Dashboard
+              </NavLink>
             </li>
-            <li className="px-3 py-2 rounded-sm mb-2 last:mb-0 bg-gray-900">
-              <NavLink className="text-gray-200 hover:text-white" to="/about">Analystic</NavLink>
+            {Object.values(linkNavigation).map( link => {
+              const { name , target, searchLink} = link;
+              return (
+              <li className={`side-bar-link-list ${navLinkBgHover(searchLink)}`}>
+                <NavLink className="side-bar-link" to={`${target}`}>
+                  {name}
+                </NavLink>
+              </li>);
+            })}
+            <li className={`side-bar-link-list ${navLinkBgHover("login")}`}>
+              <NavLink className="side-bar-link" to="/login">
+                Login
+              </NavLink>
             </li>
-            <li className="px-3 py-2 rounded-sm mb-2 last:mb-0 bg-gray-900">
-              <NavLink className="text-gray-200 hover:text-white" to="/users">Alarm Banner</NavLink>
-            </li>
-            <li className="px-3 py-2 rounded-sm mb-2 last:mb-0 bg-gray-900">
-              <NavLink className="text-gray-200 hover:text-white" to="/users">Reporting</NavLink>
-            </li>
-            <li className="px-3 py-2 rounded-sm mb-2 last:mb-0 bg-gray-900">
-              <NavLink className="text-gray-200 hover:text-white" to="/users">Calendar</NavLink>
-            </li>
-            <li className="px-3 py-2 rounded-sm mb-2 last:mb-0 bg-gray-900">
-              <NavLink className="text-gray-200 hover:text-white" to="/users">Messages</NavLink>
-            </li>
-            <li className="px-3 py-2 rounded-sm mb-2 last:mb-0 bg-gray-900">
-              <NavLink className="text-gray-200 hover:text-white" to="/users">Settings</NavLink>
-            </li>
-            <li className="px-3 py-2 rounded-sm mb-2 last:mb-0 bg-gray-900">
-              <NavLink className="text-gray-200 hover:text-white" to="/users">Logout</NavLink>
+            <li className={`side-bar-link-list ${navLinkBgHover("logout")}`}>
+              <NavLink className="side-bar-link" to="/logout">
+                Logout
+              </NavLink>
             </li>
           </ul>
         </nav>
       </div>
       <div className="flex flex-col items-center w-full">
-              <WelcomeBanner />
-                <div className="flex  w-2/4 h-2/4">
-                  <canvas ref={canvas} width={600} height={400}></canvas>
-            </div>
+        <WelcomeBanner />
+        <div className="flex  w-2/4 h-2/4">
+          <canvas ref={canvas} width={600} height={400}></canvas>
+        </div>
       </div>
     </div>
   );
