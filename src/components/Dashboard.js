@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { linkNavigation } from "../routers/index";
+import { useLocation } from "react-router-dom";
+import { WrappMain, WrappSideBar, WrappContent } from "./WrapComponents";
 import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
+import Table from "./Tables";
 import { levelChart } from "./chart";
 import { io } from "socket.io-client";
 import "chartjs-adapter-luxon";
@@ -40,17 +41,22 @@ function Dashboard() {
   const { pathname } = location;
 
   return (
-    <div className="flex flex-row w-screen h-screen">
-      <div className="flex justify-center w-1/6 bg-gray-700">
-        <SideBar/>
-      </div>
-      <div className="flex flex-col items-center w-full">
+    <WrappMain>
+      <WrappSideBar>
+        <SideBar />
+      </WrappSideBar>
+      {/* full content start*/}
+      <WrappContent>
         <WelcomeBanner />
-        <div className="flex  w-2/4 h-2/4">
+        <div className="flex w-2/4 h-2/4 mb-28">
           <canvas ref={canvas} width={600} height={400}></canvas>
         </div>
-      </div>
-    </div>
+        <div className="flex flex-col justify-center w-full">
+          <Table />
+        </div>
+      </WrappContent>
+      {/* full content end*/}
+    </WrappMain>
   );
 }
 

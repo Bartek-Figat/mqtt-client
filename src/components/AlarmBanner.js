@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
+import { WrappMain, WrappSideBar, WrappContent } from "./WrapComponents";
 import SideBar from "./SideBar";
 import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
 
 function AlarmBanner() {
   return (
-    <div className="flex flex-row w-screen h-screen">
-      <div className="flex justify-center w-1/6 bg-gray-700">
+    <div className="flex h-screen overflow-hidden">
+      <div className="flex justify-center bg-gray-700 h-screen z-40 no-scrollbar w-56">
         <SideBar />
       </div>
       <div className="flex flex-col items-center w-full">
