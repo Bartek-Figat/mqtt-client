@@ -1,20 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
+import { WrappMain, WrappSideBar, WrappContent } from "./WrapComponents";
 import SideBar from "./SideBar";
 import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
 
 function Logout() {
   return (
-    <div className="flex flex-row w-screen h-screen">
-      <div className="flex justify-center w-1/6 bg-gray-700">
+    <WrappMain>
+      <WrappSideBar>
         <SideBar />
-      </div>
-      <div className="flex flex-col items-center w-full">
+      </WrappSideBar>
+      <WrappContent>
         <WelcomeBanner />
         <div className="flex  w-2/4 h-2/4">
           <span>Logout Page</span>
         </div>
-      </div>
-    </div>
+      </WrappContent>
+    </WrappMain>
   );
 }
 

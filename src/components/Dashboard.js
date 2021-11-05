@@ -37,9 +37,6 @@ function Dashboard() {
     levelChart(dataChart, ctx, grd, currentLevel);
   }, [currentLevel, dataChart]);
 
-  const location = useLocation();
-  const { pathname } = location;
-
   return (
     <WrappMain>
       <WrappSideBar>
@@ -51,7 +48,7 @@ function Dashboard() {
         <div className="flex w-2/4 h-2/4 mb-28">
           <canvas ref={canvas} width={600} height={400}></canvas>
         </div>
-        <div className="flex flex-col justify-center w-full">
+        <div className="flex flex-col justify-center w-11/12 mt-6">
           <Table />
         </div>
       </WrappContent>

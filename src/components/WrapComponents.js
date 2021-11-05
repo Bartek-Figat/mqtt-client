@@ -14,7 +14,7 @@ export const WrappSideBar = ({ children }) => {
 
 export const WrappContent = ({ children }) => {
     return (
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+      <div className="relative flex flex-col items-center flex-1 overflow-y-auto overflow-x-hidden">
         {children}
       </div>
     );
