@@ -11,3 +11,15 @@
       @apply block text-gray-200 hover:text-white truncate transition duration-150;
     }
   }
+
+
+
+@layer utilities {
+    .dot {
+      background-color: #fff;
+      background-image: radial-gradient(#6c757d 1%, transparent 5%);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      background-repeat: repeat;
+    }
+  }  

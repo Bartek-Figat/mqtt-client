@@ -82,7 +82,7 @@ export const levelChart = (dataChart, ctx, grd, currentLevel) => {
                   chart.data.datasets.forEach((dataset) => {
                     dataset.data.push({
                       x: Date.now(),
-                      y: currentLevel ? currentLevel : 0,
+                      y: currentLevel,
                     });
                   });
                 },

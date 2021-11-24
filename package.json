@@ -15,6 +15,7 @@
     "chartjs-plugin-datalabels": "^2.0.0",
     "chartjs-plugin-streaming": "^2.0.0",
     "color": "^4.0.1",
+    "custom-electron-titlebar": "^3.2.7",
     "luxon": "^2.0.2",
     "moment": "^2.29.1",
     "mqtt": "^4.2.8",

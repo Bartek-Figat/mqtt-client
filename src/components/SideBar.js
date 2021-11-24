@@ -9,7 +9,7 @@ function SideBar() {
   const { pathname } = location;
 
   return (
-        <nav className="flex justify-center w-full h-screen mt-36 bg-gray-700 inset-0">
+        <nav className="flex justify-center w-full h-screen decoration-clone mt-36 bg-gradient-to-r from-gray-700 to-transparent inset-0">
           <ul className="mt-3 w-11/12 ">
             {Object.values(linkNavigation).map((link) => {
               const { name, target, icone } = link;

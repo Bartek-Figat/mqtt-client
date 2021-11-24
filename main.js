@@ -8,10 +8,6 @@ function createWindow() {
     height: 600,
     frame: true,
     autoHideMenuBar: true,
-    titleBarOverlay: {
-      color: "#2f3241",
-      symbolColor: "#74b1be",
-    },
     webPreferences: {
       contextIsolation: true,
       devTools: true,

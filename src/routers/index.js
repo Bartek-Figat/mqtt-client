@@ -1,7 +1,8 @@
+import {AiOutlineBuild} from "react-icons/ai";
 import { FaUserFriends } from "react-icons/fa";
 import { FiLogIn } from "react-icons/fi";
 import { MdOutlineManageSearch } from "react-icons/md";
-import { BiAnalyse, BiLogOut } from "react-icons/bi";
+import { BiLogOut } from "react-icons/bi";
 import {
   RiAlarmWarningFill,
   RiGitRepositoryCommitsFill,
@@ -18,10 +19,10 @@ export const linkNavigation = [
     icone: <RiDashboardLine />,
   },
   {
-    name: "Analystic",
-    target: "/analystic",
-    searchLink: "analystic",
-    icone: <BiAnalyse />,
+    name: "Build",
+    target: "/build",
+    searchLink: "build",
+    icone: <AiOutlineBuild />,
   },
   {
     name: "Users",
