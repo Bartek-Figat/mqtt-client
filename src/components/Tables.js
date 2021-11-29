@@ -1,10 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import { FiPhoneCall } from "react-icons/fi";
 import { ImLoop } from "react-icons/im";
 import { BsChatSquareText } from "react-icons/bs";
 import { AiOutlineMail } from "react-icons/ai";
 import { VscCalendar } from "react-icons/vsc";
-import Image01 from "../images/applications-image-01.jpg";
 
 const tableHeaderText = [
   "Contact",

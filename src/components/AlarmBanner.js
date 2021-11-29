@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import { WrappMain, WrappSideBar, WrappContent } from "./WrapComponents";
+import Table from "./Tables";
 import SideBar from "./SideBar";
 import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
 
@@ -11,8 +12,8 @@ function AlarmBanner() {
       </WrappSideBar>
       <WrappContent>
         <WelcomeBanner />
-        <div className="flex  w-2/4 h-2/4">
-          <span>Alarm Banner Page</span>
+        <div className="flex flex-col justify-center w-11/12 mt-6">
+          <Table />
         </div>
       </WrappContent>
     </WrappMain>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 
 export const WrappMain = ({ children }) => {
   return <div className="flex h-screen overflow-hidden">{children}</div>;

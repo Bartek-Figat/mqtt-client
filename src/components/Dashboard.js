@@ -1,9 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useRef, useEffect } from "react";
 import { WrappMain, WrappSideBar, WrappContent } from "./WrapComponents";
 import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
-import Table from "./Tables";
-import { levelChart } from "./chart";
 import { io } from "socket.io-client";
 import "chartjs-adapter-luxon";
 import { Chart, registerables } from "chart.js";
@@ -35,7 +32,7 @@ function Dashboard() {
     blue: "rgb(29, 124, 210, 100)",
     purple: "rgb(153, 102, 255)",
     grey: "rgb(201, 203, 207)",
-};
+  };
 
   useEffect(() => {
     const ctx = canvas.current;
@@ -155,9 +152,6 @@ function Dashboard() {
         <WelcomeBanner />
         <div className="flex w-2/4 h-2/4 mb-28">
           <canvas ref={canvas} width={600} height={400}></canvas>
-        </div>
-        <div className="flex flex-col justify-center w-11/12 mt-6">
-          <Table />
         </div>
       </WrappContent>
       {/* full content end*/}
